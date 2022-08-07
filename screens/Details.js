@@ -89,6 +89,17 @@ const Details = ({route, navigation}) => {
                             <SubInfo/>
                             <View style={{padding: SIZES.font}}>
                                 <DetailsDesc data={data}/>
+                                {/* checking to see if bid length is less than zero */}
+                                {data.bids.length > 0 && (
+                                    <Text
+                                    style={{
+                                        fontSize: SIZES.font,
+                                        fontFamily: FONTS.semiBold,
+                                        color: COLORS.primary
+                                    }}>
+                                        {data.bids.length < 2 ? 'Current Bid' : 'Current Bids'}
+                                    </Text>
+                                )}
                             </View>
                         </React.Fragment>
                     )}/>

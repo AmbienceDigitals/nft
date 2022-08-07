@@ -5,6 +5,10 @@ import {EthPrice, NFTTitle} from '../components/SubInfo';
 import {COLORS, SIZES, FONTS} from '../constants';
 
 const DetailsDesc = ({data}) => {
+    // limiting returned text to a maximum of 100 words
+    const [text, setText] = useState(data.description.slice(0, 100));
+    const [readMore, setReadMore] = useState(false);
+
     return (
         <>
             <View 
@@ -32,10 +36,43 @@ const DetailsDesc = ({data}) => {
                     style={{
                         fontSize: SIZES.font,
                         fontFamily: FONTS.semiBold,
-                        
+                        color: COLORS.primary
                     }}>
-
+                        Description
                     </Text>
+                    <View style={{marginTop: SIZES.base}}>
+                        <Text
+                        style={{
+                            fontSize: SIZES.small,
+                            fontFamily: FONTS.regular,
+                            color: COLORS.secondary,
+                            lineHeight: SIZES.large,
+                        }}>
+                            {text}
+                            {!readMore && '...'}
+
+                            <Text
+                            style={{
+                                fontSize: SIZES.small,
+                                fontFamily: FONTS.semiBold,
+                                color: COLORS.primary,
+                            }}
+                            // function to read more or less on clicking the read more text
+                            onPress={() => {
+                                if(!readMore) {
+                                    setText(data.description);
+                                    setReadMore(true)
+                                }
+                                else {
+                                    setText(data.description.slice(0, 100));
+                                    setReadMore(false)
+                                }
+                            }}>
+                                {readMore ? "Show Less" : "Read More"}
+                            </Text>
+                        </Text>
+                    
+                    </View>
             </View>
         </>
     ) 
